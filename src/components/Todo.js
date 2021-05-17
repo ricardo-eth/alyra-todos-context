@@ -1,8 +1,19 @@
+import { useTodosDispatch } from "../context/TodosDispatchContext";
+
 const Todo = (props) => {
-  const { todo, deleteTodo, toggleCompleteTodo } = props
+  const dispatch = useTodosDispatch();
+  const { todo } = props;
+  const deleteTodo = (task) => {
+    //setTodos(todos.filter((el) => el.id !== task.id))
+    dispatch({ type: "DELETE", payload: task });
+  };
+
+  const toggleCompleteTodo = (task) => {
+    dispatch({ type: "TOGGLE", payload: task });
+  };
   const style = {
-    textDecoration: todo.isCompleted ? "line-through" : "none"
-  }
+    textDecoration: todo.isCompleted ? "line-through" : "none",
+  };
   return (
     <div className="shadow-sm border p-2 d-flex align-items-center justify-content-between mb-2">
       <span style={style}>{todo.text}</span>
@@ -33,7 +44,7 @@ const Todo = (props) => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Todo
+export default Todo;
